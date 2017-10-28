@@ -1,0 +1,57 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}Logon{% endblock %}
+{% block style %}
+{% endblock %}
+{% block script %}
+<script src="{{ STATIC_URL }}js/vendor/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-validate.bootstrap-tooltip.min.js"></script>
+<script src="{{ STATIC_URL }}js/local/addpayee.js"></script>
+{% endblock %}
+{% block body %}
+{% include "generic/include/navbar.html" %}
+<div class="container" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <h3 class="card-header">Add a Payee</h3>
+                <div class="card-body">
+                    <form id="addpayee" method="post" action="">
+                    	{% csrf_token %}
+                    	{% include "generic/include/bs4_v02.html" with form=form label_class="col-sm-4" field_class="col-sm-8" %}
+                        <div class="form-group row">
+                            <div class="offset-sm-4 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Add Payee</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <div class="col-12 col-md-6">
+        <div class="card">
+        <h3 class="card-header">Existing Payee</h3>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Account</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payee in payee_list %}
+                        <tr>
+                            <th scope="row"> {{ forloop.counter }} </th>
+                            <td> {{payee.payee_name }} </td>
+                            <td> {{payee.account_no }} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

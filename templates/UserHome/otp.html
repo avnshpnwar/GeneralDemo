@@ -1,0 +1,35 @@
+{% extends "generic/base/skelton.html" %} 
+{% block title %}OTP{% endblock %} 
+{% block style %}
+<style>
+.alert {
+	padding: .25rem 1.25rem;
+}
+</style>
+{% endblock %} 
+{% block script %}
+<script src="{{ STATIC_URL }}js/vendor/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-validate.bootstrap-tooltip.min.js"></script>
+<script src="{{ STATIC_URL }}js/local/otp.js"></script>
+{% endblock %} 
+{% block body %} 
+{% include "generic/include/navbar.html" %}
+<div class="container" style="margin-top: 80px;">
+    <form method="post" action="" id="otpform">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 col-sm-8 offset-sm-2">
+                <div class="card">
+                    <h3 class="card-header">Enter OTP</h3>
+                    <div class="container">
+                        <br>
+                        {% include 'generic/include/bs4_v01.html' with form=form %}
+                        <button type="submit" class="offset-4 offset-md-5 col-4 col-md-2 btn btn-primary">Submit</button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

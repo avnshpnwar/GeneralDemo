@@ -1,0 +1,45 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}Logon{% endblock %}
+{% block style %}
+<link href="{{ STATIC_URL }}css/local/auth.css" rel="stylesheet">
+{% endblock %}
+{% block script %}
+<script src="{{ STATIC_URL }}js/vendor/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-validate.bootstrap-tooltip.min.js"></script>
+<script src="{{ STATIC_URL }}js/local/logon.js"></script>
+{% endblock %}
+{% block body %}
+{% include "generic/include/navbar.html" %}
+<!-- Login Form Start -->
+<div id="log-div" class="text-center" style="padding:50px 0">
+    <div class="logo">login</div>
+    <!-- Main Form -->
+    <div class="login-form-1">
+        <form id="login-form" class="text-left" method="Post" action="">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+            <div class="main-login-form">
+                <div class="login-group">
+                    <div class="form-group">
+                        {{ form.uid.errors }}
+                        {{ form.uid }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pwd.errors }}
+                        {{ form.pwd }}
+                    </div>
+                  <!--   <div class="form-group login-group-checkbox">
+                        <input type="checkbox" id="lg_remember" name="lg_remember">
+                        <label for="lg_remember">remember</label>
+                    </div> -->
+                </div>
+                <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+            </div>
+            <div class="etc-login-form">
+                <!-- <p>forgot your password? <a id="forgetpwd" href="forgetpwd.html">click here</a></p> -->
+                <p>new user? <a id="register" href="/db/auth/register">Register Here!!</a></p>
+            </div>
+        </form>
+    </div>
+</div> <!-- Login Form End -->
+{% endblock %}

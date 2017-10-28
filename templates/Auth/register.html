@@ -1,0 +1,47 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}Logon{% endblock %}
+{% block style %}
+<link href="{{ STATIC_URL }}css/local/auth.css" rel="stylesheet">
+{% endblock %}
+{% block script %}
+<script src="{{ STATIC_URL }}js/vendor/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-validate.bootstrap-tooltip.min.js"></script>
+<script src="{{ STATIC_URL }}js/local/register.js"></script>
+{% endblock %}
+{% block body %}
+{% include "generic/include/navbar.html" %}
+<!-- Registration Form -->
+<div id="reg-div" class="text-center" style="padding:50px 0;">
+    <div class="logo">register</div>
+    <!-- Main Form -->
+    <div class="login-form-1">
+        <form id="register-form" class="text-left" method="post" action="">
+        {% csrf_token %}
+        <span style="color: red">
+            {{ form.non_field_errors }}
+        </span>
+            <div class="main-login-form">
+                <div class="login-group">
+                    <div class="form-group">
+                        {{ form.uid.errors }}
+                        {{ form.uid }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pwda.errors }}
+                        {{ form.pwda }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pwdb.errors }}
+                        {{ form.pwdb }}
+                    </div>
+                </div>
+                <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+            </div>
+            <div class="etc-login-form">
+                <p>have an account? <a href="/db/auth/">login here</a></p>
+            </div>
+        </form>
+    </div>
+    <!-- end:Main Form -->
+</div>
+{% endblock %}

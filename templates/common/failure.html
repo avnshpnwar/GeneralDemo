@@ -1,0 +1,22 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}{% endblock %}
+{% block style %}
+<link href="{{ STATIC_URL }}css/local/errsucc.css" rel="stylesheet">
+{% endblock %}
+{% block script %}
+{% endblock %}
+{% block body %}
+<div id="w">
+    <div id="content">
+      <div class="notify successbox">
+        <h1>Failure!</h1>
+        <span class="alerticon"><img src="{{ STATIC_URL }}images/common/error.png" alt="checkmark" /></span>
+        <span style="text-align: center;"><p>{{ msg }}</p></span>
+        <a href="{{ url }}" class="btn btn-danger btn-md" style="display: inherit;">
+            <i class="fa fa-home" style="margin-right:10px"></i>
+            {{ bt }}
+        </a> 
+      </div>  
+    </div><!-- @end #content -->
+  </div><!-- @end #w -->
+{% endblock %}

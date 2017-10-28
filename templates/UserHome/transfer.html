@@ -1,0 +1,161 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}Logon{% endblock %}
+{% block style %}
+<link href="{{ STATIC_URL }}css/vendor/jquery.datetimepicker.min.css" rel="stylesheet">
+<style>
+    .alert {
+        padding: .25rem 1.25rem;
+    }
+    #id_transfer_date {
+        background: #fff;
+    }
+</style>
+{% endblock %}
+{% block script %}
+<script src="{{ STATIC_URL }}js/vendor/jquery.validate.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery-validate.bootstrap-tooltip.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/moment.min.js"></script>
+<script src="{{ STATIC_URL }}js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="{{ STATIC_URL }}js/local/transfer.js"></script>
+{% endblock %}
+{% block body %}
+{% include "generic/include/navbar.html" %}
+<div class="container" style="margin-top: 80px;">
+    {% if showform %}
+        <form method="post" action="" id="transfer">
+            {% csrf_token %} 
+            
+            
+            <!-- Show Form Errors -->
+            {% if form.non_field_errors %} 
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ error }}
+                    </div>
+                {% endfor %} 
+            {% endif %}
+            
+            
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2">
+                    <div class="card">
+                        <h3 class="card-header">Make a Transfer</h3>
+                        <div class="container">
+                            <br>
+                            <div class="form-group">
+                                <label for={{form.from_account.id_for_label}}>From Account</label>
+                                {% if form.from_account.errors %}
+                                    {% for error in form.from_account.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %} 
+                                {{ form.from_account }}
+                            </div>
+                            <div class="form-group">
+                                <label for={{form.sender_text.id_for_label}}>Text From Sender</label>
+                                {% if form.sender_text.errors %}
+                                    {% for error in form.sender_text.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {{ form.sender_text }} 
+                            </div>
+                            <div class="form-group">
+                                <label for={{form.transfer_date.id_for_label}}>Schedule Payment</label> 
+                                {% if form.transfer_date.errors %}
+                                    {% for error in form.transfer_date.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="input-group">
+                                    {{ form.transfer_date }}
+                                    <!-- <input id="id_datetime" class="form-control" type="text" value="Now" style="background-color: #fff;" disabled> -->
+                                    <div class="input-group-addon" id="datetime">
+                                        <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label for={{form.to_account_id_for_label}}>To Account</label>
+                                {% if form.to_account.errors %}
+                                    {% for error in form.to_account.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {{ form.to_account }}
+                            </div>
+                            <div class="form-group">
+                                <label for={{receiver_text}}>Text To Receiver</label> 
+                                {% if form.receiver_text.errors %}
+                                    {% for error in form.receiver_text.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {{ form.receiver_text }}
+                            </div>
+                            <br> 
+                            <label class="custom-control custom-checkbox">
+                                {% if form.agree.errors %}
+                                    {% for error in form.agree.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %} 
+                                {{ form.agree }} 
+                                    <span class="custom-control-indicator"></span> 
+                                    <span class="custom-control-description">
+                                        I agree to terms and condtions.
+                                    </span>
+                            </label>
+                        </div>
+                        <br> 
+                        <button type="submit" class="offset-4 offset-md-5 col-4 col-md-2 btn btn-primary">
+                            Pay
+                        </button> 
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            To make transfer you must have an account, and atleast one payee account added.
+            Click <a href="/db/uhome">here</a> to create an account or add a payee.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

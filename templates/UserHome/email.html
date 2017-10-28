@@ -1,0 +1,70 @@
+{% extends "generic/base/skelton.html" %}
+{% block title %}Logon{% endblock %}
+{% block style %}
+<style>
+    .alert {
+        padding: .25rem 1.25rem;
+    }
+</style>
+{% endblock %}
+{% block script %}
+{% endblock %}
+{% block body %}
+{% include "generic/include/navbar.html" %}
+<div class="container" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <h3 class="card-header">Write to Customer Care</h3>
+                <div class="card-body">
+                    <form id="email" method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">To:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">cust@behaviodemo.com</p>
+                            </div>
+                        </div>
+                        {% if form.subject.errors %}
+                            {% for error in form.subject.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %} 
+                        <div class="form-group row">
+                            <label for="{{form.subject.id_for_label}}" class="col-sm-2 col-form-label">Subject:</label>
+                            <div class="col-sm-10">
+                                {{ form.subject }}
+                            </div>
+                        </div>
+                        {% if form.body.errors %}
+                            {% for error in form.body.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %} 
+                        <div class="form-group">
+                            <label for="{{form.body.id_for_label}}">Description:</label> 
+                            {{ form.body }}
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="offset-sm-5 col-sm-2">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
